@@ -1,0 +1,45 @@
+sub DADA(x0,y0,x1,y1)
+    dim dx,dy
+    dim step#,i
+    dim xinc,yinc
+    dim x
+    dim y
+    glBegin(GL_POINTS)
+    dy=y1-y0
+    dx=x1-x0   
+    x=x0
+    y=y0
+   
+   if Abs(dx)>Abs(dy) then 
+       step#=Abs(dx) 
+   else 
+       step#=Abs(dy)  
+   endif
+    xinc=dx/step#
+    yinc=dy/step#
+    glVertex3f(Abs(x), Abs(y),0)
+     for i = 0 to step#
+     i=i+1
+            x=x+xinc
+            y=y+yinc
+            glVertex2f(Abs(x), Abs(y))
+      next
+     glEnd() 
+                                     
+end sub  
+
+while true
+ glClear(GL_COLOR_BUFFER_BIT or GL_DEPTH_BUFFER_BIT)       
+ const XSize = 640, YSize = 480
+ glMatrixMode (GL_PROJECTION)
+ glLoadIdentity ()
+ glOrtho (0, XSize, YSize, 0, 0, 1)
+ glDisable(GL_DEPTH_TEST)
+ glMatrixMode (GL_MODELVIEW)
+ glLoadIdentity()
+ glTranslatef(0, 0, 0)
+ 
+ DADA(100,10,100,100)
+ 
+ SwapBuffers ()
+wend
